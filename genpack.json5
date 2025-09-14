@@ -3,7 +3,8 @@
         "genpack/paravirt",
 
         "dev-libs/weston",
-        "sys-auth/seatd", // weston requests seatd
+        "gui-apps/tuigreet", // a simple greeter
+        "x11-apps/mesa-progs",
 
         // japanese support
         "media-fonts/noto-cjk",
@@ -13,9 +14,13 @@
         // we can do alomost anything with this stuff
         "www-client/google-chrome",
     ],
+    accept_keywords: {
+        "gui-apps/tuigreet": null
+    },
     use: {
-        // weston
-        "sys-auth/seatd": "server",
+        "x11-apps/mesa-progs": "-X wayland gles2 vulkan",
+        // greeter
+        "sys-apps/systemd": "policykit", // to allow system shutdown/reboot from greetd
 
         // japanese input
         "app-i18n/mozc": "fcitx5 -gui", // disable gui support to avoid pulling qt5 deps
@@ -24,9 +29,9 @@
         "x11-libs/libxkbcommon": "wayland",
 
         // google-chrome
-        "x11-libs/gtk+": "wayland", // gtk+ with wayland support is needed by google-chrome when opening gtk dialogs
+        "x11-libs/gtk+": "wayland", // gtk+ with both X and wayland support is needed by google-chrome when opening gtk dialogs
         "gui-libs/gtk": "-X wayland", // disable X support to avoid pulling X deps
-        "media-libs/mesa": "wayland", // gtk+ with wayland support requests mesa to support wayland
+        "media-libs/mesa": "wayland vulkan VIDEO_CARDS: virgl zink", // gtk+ with wayland support requests mesa to support wayland
     },
     license: {
         "www-client/google-chrome": "google-chrome"
@@ -36,8 +41,7 @@
             name: "user",
             uid: 1000,
             empty_password: true,
-            additional_groups: ["seat"],
         }
     ],
-    services: ["seatd"]
+    services: ["greetd"]
 }
