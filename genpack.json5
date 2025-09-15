@@ -1,40 +1,34 @@
 {
+    profile: "weston/paravirt",
     packages: [
-        "genpack/paravirt",
-
-        "dev-libs/weston",
-        "gui-apps/tuigreet", // a simple greeter
-        "x11-apps/mesa-progs",
-
-        // japanese support
-        "media-fonts/noto-cjk",
-        "app-i18n/mozc",
-        "app-i18n/fcitx-gtk",
-
-        // we can do alomost anything with this stuff
         "www-client/google-chrome",
+        "app-editors/vscode",
+        "x11-terms/ghostty",
+        "app-editors/gnome-text-editor",
+        "media-gfx/gimp",
     ],
     accept_keywords: {
-        "gui-apps/tuigreet": null
+        // only gimp >= 3.0 supports wayland
+        "media-gfx/gimp": null,
+        "media-libs/babl": null,
+        "media-libs/gegl": null,
     },
     use: {
-        "x11-apps/mesa-progs": "-X wayland gles2 vulkan",
-        // greeter
-        "sys-apps/systemd": "policykit", // to allow system shutdown/reboot from greetd
+        // for vscode
+        "app-crypt/gcr": "gtk",
 
-        // japanese input
-        "app-i18n/mozc": "fcitx5 -gui", // disable gui support to avoid pulling qt5 deps
-        "app-i18n/fcitx": "-X wayland", // disable X support to avoid pulling X deps
-        "app-i18n/fcitx-gtk": "-X", // disable X support to avoid pulling X deps
-        "x11-libs/libxkbcommon": "wayland",
+        // for ghostty
+        "media-libs/freetype": "harfbuzz",
 
-        // google-chrome
-        "x11-libs/gtk+": "wayland", // gtk+ with both X and wayland support is needed by google-chrome when opening gtk dialogs
-        "gui-libs/gtk": "-X wayland", // disable X support to avoid pulling X deps
-        "media-libs/mesa": "wayland vulkan VIDEO_CARDS: virgl zink", // gtk+ with wayland support requests mesa to support wayland
+        // for gimp
+        "app-text/poppler": "cairo",
+        "media-libs/gegl": "introspection lcms cairo",
+        "media-libs/babl": "introspection lcms",
+        "dev-python/pycairo": "X", // cairo[X] requests to pycairo to be built with X support
     },
     license: {
-        "www-client/google-chrome": "google-chrome"
+        "www-client/google-chrome": "google-chrome",
+        "app-editors/vscode": "Microsoft-vscode"
     },
     users: [
         {
@@ -43,5 +37,4 @@
             empty_password: true,
         }
     ],
-    services: ["greetd"]
 }
