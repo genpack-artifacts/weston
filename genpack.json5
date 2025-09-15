@@ -1,35 +1,27 @@
 {
     profile: "weston/paravirt",
     circulardep_breaker: {
-        packages: ["media-libs/freetype", "media-libs/harfbuzz"],
+        packages: [ "media-libs/freetype", "media-libs/harfbuzz" ],
         use: "-truetype -harfbuzz"
     },
     packages: [
-        "www-client/google-chrome",
-        "app-editors/vscode",
-        "x11-terms/ghostty",
-        "app-editors/gnome-text-editor",
-        "media-gfx/gimp",
+        "app-i18n/fcitx-configtool", // input method config tool
+        "www-client/google-chrome", // web browser
+        "app-editors/vscode", // code editor
+        "x11-terms/ghostty", // terminal emulator
+        "app-editors/gnome-text-editor", // text editor
+        "media-gfx/gimp", // image editor
+        "mail-client/evolution", // email client
+        "app-office/libreoffice", // office suite
+        "gnome-base/nautilus", // file manager
+        "app-text/papers", // document viewer
+        "media-gfx/eog", // image viewer
+        "media-video/vlc", // video player, QT_IM_MODULES=fcitx is needed to use IM
+        "media-sound/rhythmbox", // music player /usr/share/icons/hicolor/scalable/apps/org.gnome.Rhythmbox3.svg
+        "media-plugins/gst-plugins-meta", // audio/video codec plugins
+        "net-misc/remmina", // remote desktop client
+        "net-analyzer/wireshark", // network protocol analyzer
     ],
-    accept_keywords: {
-        // only gimp >= 3.0 supports wayland
-        "media-gfx/gimp": null,
-        "media-libs/babl": null,
-        "media-libs/gegl": null,
-    },
-    use: {
-        // for vscode
-        "app-crypt/gcr": "gtk",
-
-        // for ghostty
-        "media-libs/freetype": "harfbuzz",
-
-        // for gimp
-        "app-text/poppler": "cairo",
-        "media-libs/gegl": "introspection lcms cairo",
-        "media-libs/babl": "introspection lcms",
-        "dev-python/pycairo": "X", // cairo[X] requests to pycairo to be built with X support
-    },
     license: {
         "www-client/google-chrome": "google-chrome",
         "app-editors/vscode": "Microsoft-vscode"
@@ -38,6 +30,7 @@
         {
             name: "user",
             uid: 1000,
+            additional_groups: [ "wheel", "pcap" ],
             empty_password: true,
         }
     ],
