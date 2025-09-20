@@ -21,6 +21,8 @@
         "media-plugins/gst-plugins-meta", // audio/video codec plugins
         "net-misc/remmina", // remote desktop client
         "net-analyzer/wireshark", // network protocol analyzer
+        "media-gfx/inkscape", // vector graphics editor(DOES NOT WORK WELL IN WESTON)
+        "gnome-extra/gnome-system-monitor", // system monitor
     ],
     license: {
         "www-client/google-chrome": "google-chrome",
