@@ -23,6 +23,7 @@
         "net-analyzer/wireshark", // network protocol analyzer
         "media-gfx/inkscape", // vector graphics editor(DOES NOT WORK WELL IN WESTON)
         "gnome-extra/gnome-system-monitor", // system monitor
+        "app-crypt/seahorse", // keyring manager
     ],
     license: {
         "www-client/google-chrome": "google-chrome",
